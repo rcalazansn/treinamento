@@ -17,7 +17,7 @@ namespace WF_Livros
         public Livro(string titulo,
             DateTime dataLancamento, int numeroPaginas)
         {
-            Id = Guid.NewGuid();
+            Id = Guid.NewGuid().ToString().Substring(0, 8);
             Titulo = titulo;
             DataLancamento = dataLancamento;
             NumeroPaginas = numeroPaginas;
@@ -26,14 +26,14 @@ namespace WF_Livros
         public Livro(string titulo, string autor,
            DateTime dataLancamento, int numeroPaginas)
         {
-            Id = Guid.NewGuid();
+            Id = Guid.NewGuid().ToString().Substring(0, 8);
             Titulo = titulo;
             Autor = autor;
             DataLancamento = dataLancamento;
             NumeroPaginas = numeroPaginas;
         }
 
-        public Guid Id { get; private set; }
+        public string Id { get; private set; }
         public string Titulo { get; private set; }
         public string Autor { get; private set; }
         public DateTime DataLancamento { get; private set; }

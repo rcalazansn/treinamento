@@ -65,7 +65,8 @@
             // 
             this.txtId.Location = new System.Drawing.Point(184, 51);
             this.txtId.Name = "txtId";
-            this.txtId.Size = new System.Drawing.Size(138, 22);
+            this.txtId.ReadOnly = true;
+            this.txtId.Size = new System.Drawing.Size(238, 22);
             this.txtId.TabIndex = 3;
             // 
             // txtTitulo
@@ -112,6 +113,11 @@
             // txtNumeroPaginas
             // 
             this.txtNumeroPaginas.Location = new System.Drawing.Point(184, 176);
+            this.txtNumeroPaginas.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
             this.txtNumeroPaginas.Name = "txtNumeroPaginas";
             this.txtNumeroPaginas.Size = new System.Drawing.Size(138, 22);
             this.txtNumeroPaginas.TabIndex = 9;
@@ -150,7 +156,8 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnSalvar);
             this.Name = "frmManutencaoLivro";
-            this.Text = "Manutenção de Livro";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "..:: Manutenção de Livro ::..";
             ((System.ComponentModel.ISupportInitialize)(this.txtNumeroPaginas)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

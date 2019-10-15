@@ -29,8 +29,10 @@ namespace WF_Livros
             Livros.Add(new Livro("Titulo 3", "Autor 3", DateTime.Now.AddMonths(-12), 30));
 
             dgListagemLivro.AutoGenerateColumns = false;
-            dgListagemLivro.DataSource = Livros;
             dgListagemLivro.Columns[0].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgListagemLivro.Columns[0].SortMode = DataGridViewColumnSortMode.NotSortable;
+
+            AtualizarGrid();
         }
 
         private void BtnNovo_Click(object sender, EventArgs e)
@@ -47,38 +49,39 @@ namespace WF_Livros
         {
             dgListagemLivro.DataSource = null;
             dgListagemLivro.DataSource = Livros
-                .OrderBy(item=>item.DataLancamento)
+                .OrderBy(item => item.DataLancamento)
                 .ToList();
         }
 
         private void DgListagemLivro_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            // MessageBox.Show(dgListagemLivro.Columns[e.ColumnIndex].Name);
-
-            Livro itemSelecionado = (Livro)dgListagemLivro.Rows[e.RowIndex].DataBoundItem;
-
-            if (dgListagemLivro.Columns[e.ColumnIndex].Name == "btnEditar") //Editar
+            if (e.ColumnIndex == 0 && e.RowIndex > -1)
             {
-                frmManutencaoLivro frm = new frmManutencaoLivro();
-                frm.PreecherLivro(itemSelecionado);
-                frm.Show();
+                Livro itemSelecionado = (Livro)dgListagemLivro.Rows[e.RowIndex].DataBoundItem;
 
-                Livros.Remove(itemSelecionado);
-                Livros.Add(frm.LivroManutencao);
-
-                AtualizarGrid();
-            }
-
-            if (e.ColumnIndex == 6) //Apagar
-            {
-                DialogResult resut = MessageBox.Show("Deseja apagar o item?", "Remover",
-                                     MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                if (resut == DialogResult.Yes)
+                if (dgListagemLivro.Columns[e.ColumnIndex].Name == "btnEditar") //Editar
                 {
+                    frmManutencaoLivro frm = new frmManutencaoLivro();
+                    frm.PreecherLivro(itemSelecionado);
+                    frm.ShowDialog();
+
                     Livros.Remove(itemSelecionado);
+                    Livros.Add(frm.LivroManutencao);
 
                     AtualizarGrid();
+                }
+
+                if (e.ColumnIndex == 6) //Apagar
+                {
+                    DialogResult resut = MessageBox.Show("Deseja apagar o item?", "Remover",
+                                         MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                    if (resut == DialogResult.Yes)
+                    {
+                        Livros.Remove(itemSelecionado);
+
+                        AtualizarGrid();
+                    }
                 }
             }
         }

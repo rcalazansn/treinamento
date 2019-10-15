@@ -23,6 +23,7 @@ namespace WF_Livros
         {
             LivroManutencao = new Livro(
                 txtTitulo.Text,
+                txtAutor.Text,
                 txtDataLancamento.Value,
                 Convert.ToInt32(txtNumeroPaginas.Value)
                 );
@@ -33,11 +34,14 @@ namespace WF_Livros
 
         public void PreecherLivro(Livro livro)
         {
-            txtId.Text = livro.Id.ToString();
-            txtTitulo.Text = livro.Titulo;
-            txtAutor.Text = livro.Autor;
-            txtDataLancamento.Value = livro.DataLancamento;
-            txtNumeroPaginas.Value = livro.NumeroPaginas;
+            if (livro !=null)
+            {
+                txtId.Text = livro.Id.ToString();
+                txtTitulo.Text = livro.Titulo;
+                txtAutor.Text = livro.Autor;
+                txtDataLancamento.Value = livro.DataLancamento;
+                txtNumeroPaginas.Value = livro.NumeroPaginas; 
+            }
         }
     }
 }

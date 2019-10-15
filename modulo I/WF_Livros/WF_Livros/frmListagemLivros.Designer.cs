@@ -28,9 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmListagemLivros));
             this.dgListagemLivro = new System.Windows.Forms.DataGridView();
-            this.btnNovo = new System.Windows.Forms.Button();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Titulo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Autor = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -38,6 +39,8 @@
             this.numeroPaginas = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnEditar = new System.Windows.Forms.DataGridViewButtonColumn();
             this.btnApagar = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.btnNovo = new System.Windows.Forms.Button();
+            this.imageList = new System.Windows.Forms.ImageList(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dgListagemLivro)).BeginInit();
             this.SuspendLayout();
             // 
@@ -61,19 +64,9 @@
             this.dgListagemLivro.RowHeadersWidth = 51;
             this.dgListagemLivro.RowTemplate.Height = 24;
             this.dgListagemLivro.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgListagemLivro.Size = new System.Drawing.Size(1090, 299);
+            this.dgListagemLivro.Size = new System.Drawing.Size(1434, 299);
             this.dgListagemLivro.TabIndex = 0;
             this.dgListagemLivro.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgListagemLivro_CellClick);
-            // 
-            // btnNovo
-            // 
-            this.btnNovo.Location = new System.Drawing.Point(629, 326);
-            this.btnNovo.Name = "btnNovo";
-            this.btnNovo.Size = new System.Drawing.Size(145, 62);
-            this.btnNovo.TabIndex = 1;
-            this.btnNovo.Text = "Novo";
-            this.btnNovo.UseVisualStyleBackColor = true;
-            this.btnNovo.Click += new System.EventHandler(this.BtnNovo_Click);
             // 
             // Id
             // 
@@ -97,6 +90,7 @@
             // 
             // Autor
             // 
+            this.Autor.DataPropertyName = "Autor";
             this.Autor.HeaderText = "Autor";
             this.Autor.MinimumWidth = 6;
             this.Autor.Name = "Autor";
@@ -141,15 +135,34 @@
             this.btnApagar.UseColumnTextForButtonValue = true;
             this.btnApagar.Width = 125;
             // 
+            // btnNovo
+            // 
+            this.btnNovo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnNovo.Location = new System.Drawing.Point(12, 310);
+            this.btnNovo.Name = "btnNovo";
+            this.btnNovo.Size = new System.Drawing.Size(145, 62);
+            this.btnNovo.TabIndex = 1;
+            this.btnNovo.Text = "Novo";
+            this.btnNovo.UseVisualStyleBackColor = true;
+            this.btnNovo.Click += new System.EventHandler(this.BtnNovo_Click);
+            // 
+            // imageList
+            // 
+            this.imageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList.ImageStream")));
+            this.imageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList.Images.SetKeyName(0, "apagar.png");
+            this.imageList.Images.SetKeyName(1, "editar.png");
+            // 
             // frmListagemLivros
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1090, 450);
+            this.ClientSize = new System.Drawing.Size(1434, 384);
             this.Controls.Add(this.btnNovo);
             this.Controls.Add(this.dgListagemLivro);
             this.Name = "frmListagemLivros";
-            this.Text = "frmListagemLivros";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "..:: Listagem de Livros ::..";
             ((System.ComponentModel.ISupportInitialize)(this.dgListagemLivro)).EndInit();
             this.ResumeLayout(false);
 
@@ -166,5 +179,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn numeroPaginas;
         private System.Windows.Forms.DataGridViewButtonColumn btnEditar;
         private System.Windows.Forms.DataGridViewButtonColumn btnApagar;
+        private System.Windows.Forms.ImageList imageList;
     }
 }

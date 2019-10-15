@@ -1,1 +1,10 @@
 https://docs.microsoft.com/pt-br/dotnet/standard/net-standard
+
+https://balta.io/blog/dotnetconf-dotnetcore-resumo
+
+https://www.brunobrito.net.br
+
+EF
+	enable-migrations
+	add-migration InitialCreate
+	update-database
