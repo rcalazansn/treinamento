@@ -1,10 +1,11 @@
 https://docs.microsoft.com/pt-br/dotnet/standard/net-standard
-
 https://balta.io/blog/dotnetconf-dotnetcore-resumo
-
 https://www.brunobrito.net.br
+https://gago.io
 
-EF
+comando Entity Framework(EF)
 	enable-migrations
 	add-migration InitialCreate
 	update-database
+	
+	

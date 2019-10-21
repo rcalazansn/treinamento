@@ -1,83 +1,127 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Objects;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Projeto2
 {
-    public class ContaRepository
+    public class ContaRepository : IContaRepository
     {
         //C - create (insert)
         //R - read   (select)
         //U - update (update)
         //D - delete (delete)
 
-        public Projeto2Context Context { get; set; }
-
-        public ContaRepository()
-        {
-            Context = new Projeto2Context();
-        }
         public void Inserir(Conta conta)
         {
-            Context.Contas.Add(conta);
-            Context.SaveChanges();
+            using (Projeto2Context context = new Projeto2Context())
+            {
+                context.Contas.Add(conta);
+                context.SaveChanges();
+            }
         }
 
         public void Editar(Conta conta)
         {
-            //Editar modelo 1
-            //Context.Entry<Conta>(conta).State = System.Data.Entity.EntityState.Modified;
-            //Context.SaveChanges();
-
-            //Editar modelo 2
-            Conta contaDB = Obter(conta.Id);
-
-            if (contaDB != null)
+            using (Projeto2Context context = new Projeto2Context())
             {
-                Context.Entry(contaDB).CurrentValues.SetValues(conta);
-                Context.SaveChanges();
+                /*Editar modelo 1*/
+                // context.Entry<Conta>(conta).State = System.Data.Entity.EntityState.Modified;
+                // context.SaveChanges();
+
+                //Editar modelo 2
+                Conta contaDB = context.Contas.Where(x => x.Id == conta.Id).FirstOrDefault();
+
+                if (contaDB != null)
+                {
+                    context.Entry(contaDB).CurrentValues.SetValues(conta);
+                    context.SaveChanges();
+                }
             }
         }
 
         public void Apagar(int id)
         {
-            Conta contaDB = Obter(id);
-
-            if (contaDB != null)
+            using (Projeto2Context context = new Projeto2Context())
             {
-                Context.Contas.Remove(contaDB);
+                Conta contaDB = context.Contas.Where(x => x.Id == id).FirstOrDefault();
 
-                Context.SaveChanges();
+                if (contaDB != null)
+                {
+                    context.Contas.Remove(contaDB);
+                }
             }
         }
 
         public Conta Obter(int id)
         {
-            return Context.Contas.Where(x => x.Id == id).FirstOrDefault();
+            using (Projeto2Context context = new Projeto2Context())
+            {
+                return context.Contas
+                    // .Include("Cliente")
+                    .Where(x => x.Id == id).FirstOrDefault();
+            }
         }
 
         public IEnumerable<Conta> Obter()
         {
-            return Context.Contas.ToList();
+            using (Projeto2Context context = new Projeto2Context())
+            {
+                return context.Contas.ToList();
+            }
         }
 
         public void RealizarSaque(Conta conta, decimal valor)
         {
-            Context.Database.ExecuteSqlCommand($"UPDATE tab_conta SET saldo=(saldo-{valor}) WHERE id={conta.Id}");
+            using (Projeto2Context context = new Projeto2Context())
+            {
+                string query = "UPDATE tab_conta SET saldo = (saldo - {0}) WHERE id = {1}";
+                context.Database.ExecuteSqlCommand(query, valor, conta.Id);
+            }
         }
 
         public void RealizarDeposito(Conta conta, decimal valor)
         {
-            Context.Database.ExecuteSqlCommand($"UPDATE tab_conta SET saldo=(saldo+{valor}) WHERE id={conta.Id}");
+            using (Projeto2Context context = new Projeto2Context())
+            {
+                string query = "UPDATE tab_conta SET saldo=(saldo+{0}) WHERE id={1}";
+
+                context.Database.ExecuteSqlCommand(query, valor, conta.Id);
+            }
         }
+
         public void RealizarTransferecia(Conta contaOrigem, Conta ContaDestino, decimal valor)
         {
-            Context.Database.ExecuteSqlCommand($"UPDATE tab_conta SET saldo=(saldo-{valor}) WHERE id={contaOrigem.Id}");
+            using (Projeto2Context context = new Projeto2Context())
+            {
+                string queryDebito = "UPDATE tab_conta SET saldo = (saldo - {0}) WHERE id = {1}";
+                string queryCredito = "UPDATE tab_conta SET saldo = (saldo + {0}) WHERE id = {1}";
 
-            Context.Database.ExecuteSqlCommand($"UPDATE tab_conta SET saldo=(saldo+{valor}) WHERE id={ContaDestino.Id}");
+                context.Database.ExecuteSqlCommand(queryDebito, valor, contaOrigem.Id);
 
+                context.Database.ExecuteSqlCommand(queryCredito, valor, ContaDestino.Id);
+            }
+        }
+
+        public Conta Obter(string agencia, string contaCorrente)
+        {
+            using (Projeto2Context context = new Projeto2Context())
+            {
+                return context.Contas.Where(c => c.Agencia == agencia && c.ContaCorrente == contaCorrente).FirstOrDefault();
+            }
+        }
+
+        public bool ExisteSaldo(int id, decimal valor)
+        {
+            using (Projeto2Context context = new Projeto2Context())
+            {
+                Conta conta = context.Contas.Where(a => a.Id == id).FirstOrDefault();
+
+                return conta.Saldo >= valor ? true : false;
+            }
         }
     }
 }

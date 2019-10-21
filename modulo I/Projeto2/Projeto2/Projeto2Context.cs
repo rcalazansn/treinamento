@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data.Entity;
 
 namespace Projeto2
 {
@@ -11,9 +6,11 @@ namespace Projeto2
     {
         public Projeto2Context() : base("conexao")
         {
+            
         }
         public DbSet<Conta> Contas { get; set; }
         public DbSet<Cliente> Clientes { get; set; }
+        public DbSet<Banco> Bancos { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -22,12 +19,16 @@ namespace Projeto2
                      .WithMany(a => a.Contas)
                      .HasForeignKey<int>(c => c.ClienteId);
 
+            modelBuilder.Entity<Conta>()
+                    .HasRequired<Banco>(c => c.Banco)
+                    .WithMany(a => a.Contas)
+                    .HasForeignKey<int>(c => c.BancoId);
+
             modelBuilder.Properties<string>().Configure(p => p.HasColumnType("varchar"));
 
             modelBuilder.Configurations.Add(new ContaMap());
             modelBuilder.Configurations.Add(new ClienteMap());
-
-         
+            modelBuilder.Configurations.Add(new BancoMap());
 
             base.OnModelCreating(modelBuilder);
         }

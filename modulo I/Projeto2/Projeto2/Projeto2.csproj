@@ -41,12 +41,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Banco.cs" />
+    <Compile Include="BancoMap.cs" />
+    <Compile Include="BancoRepository.cs" />
     <Compile Include="Cliente.cs" />
     <Compile Include="ClienteMap.cs" />
     <Compile Include="ClienteRepository.cs" />
     <Compile Include="Conta.cs" />
     <Compile Include="ContaMap.cs" />
     <Compile Include="ContaRepository.cs" />
+    <Compile Include="IBancoRepository.cs" />
+    <Compile Include="IClienteRepository.cs" />
+    <Compile Include="IContaRepository.cs" />
+    <Compile Include="IBaseRepository.cs" />
+    <Compile Include="Migrations\201910181815156_InitialCreate.cs" />
+    <Compile Include="Migrations\201910181815156_InitialCreate.designer.cs">
+      <DependentUpon>201910181815156_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Projeto2Context.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -54,6 +66,11 @@
     <PackageReference Include="EntityFramework">
       <Version>6.3.0</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201910181815156_InitialCreate.resx">
+      <DependentUpon>201910181815156_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

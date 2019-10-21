@@ -5,65 +5,60 @@ using System.Linq;
 
 namespace Projeto2
 {
-    public class ClienteRepository : IClienteRepository
+    public class BancoRepository : IBancoRepository
     {
-        public void Inserir(Cliente cliente)
+        public void Inserir(Banco banco)
         {
             using (Projeto2Context context = new Projeto2Context())
             {
-                context.Clientes.Add(cliente);
+                context.Bancos.Add(banco);
                 context.SaveChanges();
             }
         }
 
-        public void Editar(Cliente cliente)
+        public void Editar(Banco banco)
         {
-            //Context.Entry<Cliente>(cliente).State = System.Data.Entity.EntityState.Modified;
-            //Context.SaveChanges();
-
             using (Projeto2Context context = new Projeto2Context())
             {
-                Cliente clienteDB = context.Clientes.Where(x => x.Id == cliente.Id).FirstOrDefault();
+                Banco bancoDB = context.Bancos.Where(x => x.Id == banco.Id).FirstOrDefault();
 
-                if (clienteDB != null)
+                if (bancoDB != null)
                 {
-                    context.Entry(clienteDB).CurrentValues.SetValues(cliente);
+                    context.Entry(bancoDB).CurrentValues.SetValues(banco);
                     context.SaveChanges();
                 }
             }
-
-
         }
 
         public void Apagar(int id)
         {
-            Cliente clienteDB = Obter(id);
-
             using (Projeto2Context context = new Projeto2Context())
             {
+                Banco bancoDB = context.Bancos.Where(x => x.Id == id).FirstOrDefault();
 
-                if (clienteDB != null)
+                if (bancoDB != null)
                 {
-                    context.Clientes.Remove(clienteDB);
-
+                    context.Bancos.Remove(bancoDB);
                     context.SaveChanges();
                 }
             }
         }
 
-        public Cliente Obter(int id)
+        public Banco Obter(int id)
         {
             using (Projeto2Context context = new Projeto2Context())
             {
-                return context.Clientes.Where(x => x.Id == id).FirstOrDefault();
+                return context.Bancos.Where(x => x.Id == id).FirstOrDefault();
             }
         }
 
-        public IEnumerable<Cliente> Obter()
+        public IEnumerable<Banco> Obter()
         {
             using (Projeto2Context context = new Projeto2Context())
             {
-                return context.Clientes.ToList();
+                return context.Bancos
+                .Include("Contas")
+                .ToList();
             }
         }
     }

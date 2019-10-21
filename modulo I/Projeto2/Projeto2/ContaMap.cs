@@ -15,7 +15,6 @@ namespace Projeto2
 
             HasKey(p => p.Id);
 
-            Property(p => p.Banco).IsRequired().HasMaxLength(50);//.HasColumnType("varchar");
             Property(p => p.Agencia).IsRequired().HasMaxLength(4);
             Property(p => p.ContaCorrente).IsRequired().HasMaxLength(10);
             Property(p => p.Saldo).IsRequired();
