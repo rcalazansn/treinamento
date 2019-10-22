@@ -17,5 +17,10 @@ namespace Projeto2
             }
         }
 
+        public override string ToString()
+        {
+            return $"{Codigo}-{Nome}";
+        }
+
     }
 }
