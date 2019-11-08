@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4203E898-7C66-41E7-8670-EA88FF8F652D}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Mercadinho.WF</RootNamespace>
+    <AssemblyName>Mercadinho</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>icone.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FrmPrincipal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmPrincipal.Designer.cs">
+      <DependentUpon>FrmPrincipal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmRecebimento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmRecebimento.Designer.cs">
+      <DependentUpon>FrmRecebimento.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmVenda.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmVenda.Designer.cs">
+      <DependentUpon>FrmVenda.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Listagem\FrmListagemClientes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Listagem\FrmListagemClientes.Designer.cs">
+      <DependentUpon>FrmListagemClientes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Listagem\FrmListagemFornecedores.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Listagem\FrmListagemFornecedores.Designer.cs">
+      <DependentUpon>FrmListagemFornecedores.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Listagem\FrmListagemProdutos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Listagem\FrmListagemProdutos.Designer.cs">
+      <DependentUpon>FrmListagemProdutos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Manutencao\FrmManutencaoCliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Manutencao\FrmManutencaoCliente.Designer.cs">
+      <DependentUpon>FrmManutencaoCliente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Manutencao\FrmManutencaoFornecedor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Manutencao\FrmManutencaoFornecedor.Designer.cs">
+      <DependentUpon>FrmManutencaoFornecedor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Manutencao\FrmManutencaoProduto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Manutencao\FrmManutencaoProduto.Designer.cs">
+      <DependentUpon>FrmManutencaoProduto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FrmPrincipal.resx">
+      <DependentUpon>FrmPrincipal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmRecebimento.resx">
+      <DependentUpon>FrmRecebimento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmVenda.resx">
+      <DependentUpon>FrmVenda.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Listagem\FrmListagemClientes.resx">
+      <DependentUpon>FrmListagemClientes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Listagem\FrmListagemFornecedores.resx">
+      <DependentUpon>FrmListagemFornecedores.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Listagem\FrmListagemProdutos.resx">
+      <DependentUpon>FrmListagemProdutos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Manutencao\FrmManutencaoCliente.resx">
+      <DependentUpon>FrmManutencaoCliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Manutencao\FrmManutencaoFornecedor.resx">
+      <DependentUpon>FrmManutencaoFornecedor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Manutencao\FrmManutencaoProduto.resx">
+      <DependentUpon>FrmManutencaoProduto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Mercadinho.Data\Mercadinho.Data.csproj">
+      <Project>{d9e6f86b-7f60-4009-a4e3-38ed09ccaa54}</Project>
+      <Name>Mercadinho.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="EntityFramework">
+      <Version>6.3.0</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="icone.ico" />
+    <Content Include="Resources\icone.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

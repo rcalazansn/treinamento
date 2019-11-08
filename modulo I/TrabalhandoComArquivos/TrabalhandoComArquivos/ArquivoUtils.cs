@@ -3,11 +3,11 @@ using System.IO;
 
 namespace TrabalhandoComArquivos
 {
-    public class ArquivoUtils
+    public class ArquivoUtils 
     {
         public void DiretorioExiste()
         {
-            if (Directory.Exists("C:\\Temp"))
+            if (Directory.Exists(@"C:\Temp\NovaPasta"))
             {
                 Console.WriteLine("diretorio existe");
             }
@@ -53,17 +53,22 @@ namespace TrabalhandoComArquivos
         {
             string path = Path.Combine(@"C:\Temp", $"{Guid.NewGuid()}.txt");
 
-            using (StreamWriter sw = new StreamWriter(path))
-            {
-                sw.WriteLine($"Data:{DateTime.Now}");
-                sw.Write("Rodrigo ");
-                sw.Write("Calazans");
-            }
+            // using (StreamWriter sw = new StreamWriter(path))
+            //{
+
+            StreamWriter sw = new StreamWriter(path);
+
+            sw.WriteLine($"Data:{DateTime.Now}");
+            sw.Write("Rodrigo ");
+            sw.Write("Calazans");
+
+            sw.Dispose();
+            //}
         }
 
         public void LerArquivo()
         {
-            string path = Path.Combine(@"C:\Temp", "841b1c89-8e80-488a-bafd-4421f93b5bf0.txt");
+            string path = Path.Combine(@"C:\Temp", "bb26cb6f-6ba0-4b57-bc49-c67416c2b8c4.txt");
 
             using (StreamReader sr = new StreamReader(path))
             {
@@ -71,5 +76,7 @@ namespace TrabalhandoComArquivos
                 Console.WriteLine(linha);
             }
         }
+
+
     }
 }

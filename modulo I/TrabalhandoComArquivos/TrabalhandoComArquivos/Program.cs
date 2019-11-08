@@ -15,17 +15,23 @@ namespace TrabalhandoComArquivos
 
             ArquivoUtils arquivoUtils = new ArquivoUtils();
 
+            //using (ArquivoUtils arquivoUtils1 = new ArquivoUtils())
+            //{
+
+            //}
+
+
             //arquivoUtils.DiretorioExiste();
 
             //  arquivoUtils.ArquivoExiste();
 
-            //arquivoUtils.InformacoesArquivo();
+           // arquivoUtils.InformacoesArquivo();
 
             //arquivoUtils.CriarDiretorio();
 
-            //arquivoUtils.CriarEscreverArquivo();
+           // arquivoUtils.CriarEscreverArquivo();
 
-            //arquivoUtils.LerArquivo();
+            arquivoUtils.LerArquivo();
 
             Console.WriteLine("Pressione qualquer tecla para fechar");
             Console.ReadKey();
