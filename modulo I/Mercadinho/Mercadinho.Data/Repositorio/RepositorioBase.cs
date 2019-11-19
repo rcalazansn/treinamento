@@ -41,7 +41,7 @@ namespace Mercadinho.Data.Repositorio
            // return MercadinhoContexto.Set<E>().Find(id);
         }
 
-        public IEnumerable<E> ObterTodos()
+        public virtual IEnumerable<E> ObterTodos()
         {
             return MercadinhoContexto.Set<E>().ToList();
         }

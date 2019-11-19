@@ -1,10 +1,18 @@
-﻿using Mercadinho.Data.Modelo;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Mercadinho.Data.Modelo;
 using Mercadinho.Data.Repositorio.Interfaces;
 
 namespace Mercadinho.Data.Repositorio
 {
     public class EstoqueRepositorio : RepositorioBase<Estoque>, IEstoqueRepositorio
     {
+        public override IEnumerable<Estoque> ObterTodos()
+        {
+            //return base.ObterTodos();
+
+            return MercadinhoContexto.Estoque.Where(a => a.QtdeAtual > 10).ToList();
+        }
         public void EfetuarRecevimento(int produtoId, int quantidade)
         {
             var estoque = Obter(produtoId);

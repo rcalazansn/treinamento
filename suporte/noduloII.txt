@@ -1,0 +1,26 @@
+Rest com ASP.NET Core - WebAPI
+
+Comandos
+	dotnet
+	dotnet new webapi -n MinhaPrimeiraAPI
+	
+--------------------------------------------
+Solução
+Modelo 1:
+	API	
+		DAL
+		Models
+		ViewModels
+		Controllers
+Modelo 2:
+	API
+		ViewModels
+		Controllers
+	Business
+		Intefaces
+		Models
+			Validations
+	Data
+		Context
+		Repository
+		Mappings
