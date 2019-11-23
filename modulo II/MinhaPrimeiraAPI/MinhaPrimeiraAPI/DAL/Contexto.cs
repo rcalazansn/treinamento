@@ -10,7 +10,7 @@ namespace MinhaPrimeiraAPI.DAL
         {
 
         }
-
+        
         public DbSet<Produto> Produtos { get; set; }
     }
 }

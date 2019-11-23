@@ -1,5 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using FluentValidation.Results;
+using Microsoft.EntityFrameworkCore;
 using MinhaPrimeiraAPI.Models;
+using MinhaPrimeiraAPI.Models.Validations;
 using System;
 using System.Collections.Generic;
 using System.Linq;

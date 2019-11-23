@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
+using AutoMapper;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 using MinhaPrimeiraAPI.DAL;
 using MinhaPrimeiraAPI.Models;
+using MinhaPrimeiraAPI.Models.Validations;
+using MinhaPrimeiraAPI.ViewModels;
 
 namespace MinhaPrimeiraAPI.Controllers
 {
@@ -12,43 +17,85 @@ namespace MinhaPrimeiraAPI.Controllers
     [ApiController]
     public class ProdutosController : ControllerBase
     {
-        public readonly IProdutoRepository _produtoRepository;
+        private readonly IProdutoRepository _produtoRepository;
+        private readonly IMapper _mapper;
 
-        public ProdutosController(IProdutoRepository produtoRepository)
+        public ProdutosController(IProdutoRepository produtoRepository, IMapper mapper)
         {
             _produtoRepository = produtoRepository;
+            _mapper = mapper;
         }
 
         [HttpPost]
-        public void Adicionar(Produto produto)
+        [ProducesResponseType((int)HttpStatusCode.Created)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        public ActionResult<Produto> AdicionarProduto(ProdutoAdicionarViewModel produtoVM)
         {
-            _produtoRepository.Adicionar(produto);
+            var prd = _mapper.Map<Produto>(produtoVM);
+
+            ValidationResult resultadoValidacao = new ProdutoValidation().Validate(prd);
+
+            if (resultadoValidacao.IsValid == false)
+            {
+                return BadRequest(new
+                {
+                    erro = resultadoValidacao.Errors.Select(a => a.ErrorMessage)
+                });
+            }
+
+            _produtoRepository.Adicionar(_mapper.Map<Produto>(produtoVM));
+
+            return Created(nameof(AdicionarProduto), new { IdCadastrado = prd.Id });
         }
 
         [HttpPut]
-        public void Editar(Produto produto)
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        public ActionResult Editar(ProdutoEditarViewModel produtoVM)
         {
-            _produtoRepository.Editar(produto);
+            _produtoRepository.Editar(_mapper.Map<Produto>(produtoVM));
+
+            return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public void Apagar(int id)
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        public ActionResult Apagar(int id)
         {
             var produto = _produtoRepository.Obter(id);
 
             _produtoRepository.Apagar(produto);
+
+            return NoContent();
         }
 
         [HttpGet("{id}")]
-        public Produto Obter(int id)
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        public ActionResult<Produto> Obter(int id)
         {
-            return _produtoRepository.Obter(id);
+            var produto = _produtoRepository.Obter(id);
+
+            if (produto != null)
+                return Ok(produto);
+            else
+                return NotFound(new { mensagem = $"Id {id} não foi encontrado!" });
+
         }
 
         [HttpGet]
-        public IEnumerable<Produto> Obter()
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        public ActionResult<IEnumerable<Produto>> Obter()
         {
-            return _produtoRepository.Obter();
+            var produtos = _produtoRepository.Obter();
+
+            return Ok(produtos);
         }
     }
 }
