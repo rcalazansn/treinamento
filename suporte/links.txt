@@ -8,10 +8,37 @@ Artigos https://www.brunobrito.net.br
 Exemplos EFCore
 	https://github.com/andreluizsecco/EFCore.Demo
 
+FluentValidation
+	https://github.com/JeremySkinner/FluentValidation
+
+AutoMapper
+	https://github.com/AutoMapper/AutoMapper/tree/master/src/AutoMapper
+	
+Swagger
+	https://docs.microsoft.com/pt-br/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-3.0&tabs=visual-studio	
+	
 comando Entity Framework(EF)
 	enable-migrations
 	add-migration InitialCreate
 	update-database
 	
+dotnet new webapi -o APP01 --framework	
+dotnet new -i Microsoft.DotNet.Web.ProjectTemplates.2.2::2.2.6	
+dotnet new webapi -o APP02.2 -f netcoreapp2.2
+
+-------------------------------------
+Pasta do projeto: Projeto.Completo
+mkdir src
+cd src
+dotnet new classlib -o RCN.Data -f netcoreapp2.1 (adicionar tempalte ->  dotnet new -i Microsoft.DotNet.Web.ProjectTemplates.2.2::2.2.8)
+dotnet new classlib -o RCN.Business -f netcoreapp2.1
+dotnet new webapi -o RCN.Api -f netcoreapp2.2
+cd..
+dotnet new sln -n API
+dotnet sln add src\RCN.Api
+dotnet sln add src\RCN.Business
+dotnet sln add src\RCN.Data
+
+
 	
 	
