@@ -17,6 +17,11 @@ AutoMapper
 Swagger
 	https://docs.microsoft.com/pt-br/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-3.0&tabs=visual-studio	
 	
+notificações
+	https://medium.com/xp-inc/notifica%C3%A7%C3%B5es-ao-inv%C3%A9s-de-exce%C3%A7%C3%B5es-net-core-4f8889eeebbf
+metodos async
+	https://www.brunobrito.net.br/asp-net-e-iis-anatomia-de-uma-aplicacao-web-parte-ii/
+
 comando Entity Framework(EF)
 	enable-migrations
 	add-migration InitialCreate
