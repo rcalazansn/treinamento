@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using RCN.Business.Model;
 using RCN.Data.Mapping;
-using RCN.Data.Model;
 
 namespace RCN.Data.Context
 {

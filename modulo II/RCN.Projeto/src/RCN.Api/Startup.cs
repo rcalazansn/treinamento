@@ -11,7 +11,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using RCN.Business.Interfaces;
 using RCN.Data.Context;
+using RCN.Data.Repository;
 
 namespace RCN.Api
 {
@@ -30,6 +32,10 @@ namespace RCN.Api
             {
                 options.UseSqlServer(Configuration.GetConnectionString("sql"));
             });
+
+            services.AddScoped<IFornecedorRepository, FornecedorRepository>();
+            services.AddScoped<IProdutoRepository, ProdutoRepository>();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 

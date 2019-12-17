@@ -1,6 +1,6 @@
 using System;
 
-namespace RCN.Data.Model
+namespace RCN.Business.Model
 {
     public class Entity
     {

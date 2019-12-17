@@ -1,4 +1,4 @@
-namespace RCN.Data
+namespace RCN.Business
 {
     public enum TipoFornecedor
     {

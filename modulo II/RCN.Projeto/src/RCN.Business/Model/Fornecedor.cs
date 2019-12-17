@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace RCN.Data.Model
+namespace RCN.Business.Model
 {
     public class Fornecedor : Entity
     {
