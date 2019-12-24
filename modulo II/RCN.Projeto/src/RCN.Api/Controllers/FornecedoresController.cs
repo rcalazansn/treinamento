@@ -2,33 +2,48 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using RCN.Api.ViewModel;
 using RCN.Business.Interfaces;
+using RCN.Business.Interfaces.Services;
 using RCN.Business.Model;
+using RCN.Business.Notificacoes;
 using RCN.Data.Context;
 
 namespace RCN.Api.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
-    public class FornecedoresController : ControllerBase
+    
+    public class FornecedoresController : MainController
     {
         private readonly IFornecedorRepository _fornecedorRepository;
+        private readonly IFornecedorService _fornecedorService;
+        private readonly IMapper _mapper;
 
-        public FornecedoresController(IFornecedorRepository fornecedorRepository)
+        public FornecedoresController
+        (
+            IFornecedorRepository fornecedorRepository,
+            IFornecedorService fornecedorService,
+            IMapper mapper,
+            INotificador notificador
+        ): base(notificador)
         {
             _fornecedorRepository = fornecedorRepository;
+            _fornecedorService = fornecedorService;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Fornecedor>>> GetFornecedores()
+        public async Task<ActionResult<IEnumerable<FornecedorViewModel>>> GetFornecedores()
         {
             return Ok(await _fornecedorRepository.Obter());
         }
 
-        public async Task<ActionResult<Fornecedor>> GetFornecedor(Guid id)
+        [HttpGet("{id}")]
+        public async Task<ActionResult<FornecedorViewModel>> Get(Guid id)
         {
             var fornecedor = await _fornecedorRepository.Obter(id);
 
@@ -37,42 +52,43 @@ namespace RCN.Api.Controllers
                 return NotFound();
             }
 
-            return fornecedor;
+            return _mapper.Map<FornecedorViewModel>(fornecedor);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutFornecedor(Guid id, Fornecedor fornecedor)
+        public async Task<IActionResult> Put(Guid id, FornecedorEditarViewModel fornecedorVM)
         {
-            if (id != fornecedor.Id)
+            if (!ModelState.IsValid) return Result(ModelState);
+
+            if (id != fornecedorVM.Id)
             {
                 return BadRequest();
             }
 
-            await _fornecedorRepository.Editar(fornecedor);
+            await _fornecedorService.Editar(_mapper.Map<Fornecedor>(fornecedorVM));
 
-            return NoContent();
+            return Result("Registro alterado com sucesso");
         }
 
         [HttpPost]
-        public async Task<ActionResult<Fornecedor>> PostFornecedor(Fornecedor fornecedor)
+        public async Task<ActionResult<Fornecedor>> Post(FornecedorAdicionarViewModel fornecedorVM)
         {
-            await _fornecedorRepository.Inserir(fornecedor);
+            if (!ModelState.IsValid) return Result(ModelState);
 
-            return CreatedAtAction("GetFornecedor", new { id = fornecedor.Id }, fornecedor);
+            await _fornecedorService.Inserir(_mapper.Map<Fornecedor>(fornecedorVM));
+
+           return Result("Regitro incluido com sucesso");
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Fornecedor>> DeleteFornecedor(Guid id)
+        public async Task<ActionResult<Fornecedor>> Delete(Guid id)
         {
             var fornecedor = await _fornecedorRepository.Obter(id);
-            if (fornecedor == null)
-            {
-                return NotFound();
-            }
+            if (fornecedor == null) return NotFound();
 
-            await _fornecedorRepository.Apagar(fornecedor);
+            await _fornecedorService.Apagar(fornecedor);
 
-            return fornecedor;
+            return Result(fornecedor);
         }
     }
 }

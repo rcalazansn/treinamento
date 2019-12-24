@@ -2,33 +2,48 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using RCN.Api.ViewModel;
 using RCN.Business.Interfaces;
+using RCN.Business.Interfaces.Services;
 using RCN.Business.Model;
+using RCN.Business.Notificacoes;
 using RCN.Data.Context;
 
 namespace RCN.Api.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
-    public class ProdutosController : ControllerBase
+    public class ProdutosController : MainController
     {
         private readonly IProdutoRepository _produtoRepository;
+        private readonly IProdutoService _produtoService;
+        private readonly IMapper _mapper;
 
-        public ProdutosController(IProdutoRepository produtoRepository)
+
+        public ProdutosController
+        (
+            IProdutoRepository produtoRepository,
+            IProdutoService produtoService, 
+            IMapper mapper,
+            INotificador notificador
+        ) : base(notificador)
         {
             _produtoRepository = produtoRepository;
+            _produtoService = produtoService;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Produto>>> Get()
+        public async Task<ActionResult<IEnumerable<ProdutoViewModel>>> Get()
         {
             return Ok(await _produtoRepository.Obter());
         }
 
-        public async Task<ActionResult<Produto>> Get(Guid id)
+        [HttpGet("{id}")]
+        public async Task<ActionResult<ProdutoViewModel>> Get(Guid id)
         {
             var produto = await _produtoRepository.Obter(id);
 
@@ -37,28 +52,34 @@ namespace RCN.Api.Controllers
                 return NotFound();
             }
 
-            return produto;
+            return _mapper.Map<ProdutoViewModel>(produto);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(Guid id, Produto produto)
+        public async Task<IActionResult> Put(Guid id, ProdutoEditarViewModel produtoVM)
         {
-            if (id != produto.Id)
+            if (!ModelState.IsValid) return Result(ModelState);
+
+            if (id != produtoVM.Id)
             {
                 return BadRequest();
             }
 
-            await _produtoRepository.Editar(produto);
+            await _produtoService.Editar(_mapper.Map<Produto>(produtoVM));
 
-            return NoContent();
+            return Result("Registro alterado com sucesso");
         }
 
         [HttpPost]
-        public async Task<ActionResult<Produto>> Post(Produto produto)
+        public async Task<ActionResult<Produto>> Post(ProdutoAdicionarViewModel produtoVM)
         {
-            await _produtoRepository.Inserir(produto);
+            if (!ModelState.IsValid) return Result(ModelState);
 
-            return CreatedAtAction("Post", new { id = produto.Id }, produto);
+            var prod = _mapper.Map<Produto>(produtoVM);
+
+            await _produtoService.Inserir(prod);
+
+            return Result("Regitro incluido com sucesso");
         }
 
         [HttpDelete("{id}")]
@@ -70,9 +91,9 @@ namespace RCN.Api.Controllers
                 return NotFound();
             }
 
-            await _produtoRepository.Apagar(produto);
+            await _produtoService.Apagar(produto);
 
-            return produto;
+            return Result("Registro apagado com sucesso");
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -11,7 +12,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using RCN.Api.Configurations;
 using RCN.Business.Interfaces;
+using RCN.Business.Notificacoes;
 using RCN.Data.Context;
 using RCN.Data.Repository;
 
@@ -33,8 +36,11 @@ namespace RCN.Api
                 options.UseSqlServer(Configuration.GetConnectionString("sql"));
             });
 
-            services.AddScoped<IFornecedorRepository, FornecedorRepository>();
-            services.AddScoped<IProdutoRepository, ProdutoRepository>();
+            services.AddAutoMapper(typeof(Startup));
+
+            services.AddApiConfig();
+
+            services.AddDependencyInjectionConfig();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
