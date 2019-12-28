@@ -1,10 +1,18 @@
 https://docs.microsoft.com/pt-br/dotnet/standard/net-standard
 
-https://balta.io/guia
+Estudo
+	https://balta.io/guia
 
 Artigos https://www.brunobrito.net.br
 		https://gago.io
-		
+		https://medium.com/@alexandre.malavasi
+
+notificações
+	https://medium.com/xp-inc/notifica%C3%A7%C3%B5es-ao-inv%C3%A9s-de-exce%C3%A7%C3%B5es-net-core-4f8889eeebbf
+	
+metodos async
+	https://www.brunobrito.net.br/asp-net-e-iis-anatomia-de-uma-aplicacao-web-parte-ii/
+	
 Exemplos EFCore
 	https://github.com/andreluizsecco/EFCore.Demo
 
@@ -17,11 +25,11 @@ AutoMapper
 Swagger
 	https://docs.microsoft.com/pt-br/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-3.0&tabs=visual-studio	
 	
-notificações
-	https://medium.com/xp-inc/notifica%C3%A7%C3%B5es-ao-inv%C3%A9s-de-exce%C3%A7%C3%B5es-net-core-4f8889eeebbf
-metodos async
-	https://www.brunobrito.net.br/asp-net-e-iis-anatomia-de-uma-aplicacao-web-parte-ii/
-
+HealthChecks
+	https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks
+	
+--------------------------------------------------------------------
+	
 comando Entity Framework(EF)
 	enable-migrations
 	add-migration InitialCreate
