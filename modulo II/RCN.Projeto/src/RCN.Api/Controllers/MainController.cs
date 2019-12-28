@@ -13,12 +13,12 @@ namespace RCN.Api.Controllers
     {
         private INotificador _notificador;
 
-        public MainController(INotificador notificador)
+        protected MainController(INotificador notificador)
         {
             _notificador = notificador;
         }
 
-        public ActionResult Result(object obj = null)
+        protected ActionResult Result(object obj = null)
         {
             if (!_notificador.TemNotificacao())
             {
@@ -36,14 +36,14 @@ namespace RCN.Api.Controllers
             });
         }
 
-        public ActionResult Result(ModelStateDictionary modelState)
+        protected ActionResult Result(ModelStateDictionary modelState)
         {
             ObterNotificacoesModelInvalida(modelState);
 
             return Result();
         }
 
-        private void ObterNotificacoesModelInvalida(ModelStateDictionary modelState)
+        protected void ObterNotificacoesModelInvalida(ModelStateDictionary modelState)
         {
             var erros = modelState.Values.SelectMany(e => e.Errors);
 

@@ -15,7 +15,7 @@ using RCN.Data.Context;
 
 namespace RCN.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     public class ProdutosController : MainController
     {
         private readonly IProdutoRepository _produtoRepository;
@@ -37,6 +37,7 @@ namespace RCN.Api.Controllers
         }
 
         [HttpGet]
+        [ResponseCache(Duration = 20)]
         public async Task<ActionResult<IEnumerable<ProdutoViewModel>>> Get()
         {
             return Ok(await _produtoRepository.Obter());

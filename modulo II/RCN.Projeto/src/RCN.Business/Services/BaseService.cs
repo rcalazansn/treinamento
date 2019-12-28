@@ -26,6 +26,8 @@ namespace RCN.Business.Services
             where V : AbstractValidator<E>
             where E : Entity
         {
+            bool retorno = true;
+
             ValidationResult result = validacao.Validate(entidade);
 
             if (!result.IsValid)
@@ -35,10 +37,10 @@ namespace RCN.Business.Services
                     Notificar(err.ErrorMessage);
                 }
 
-                return false;
+                retorno = false;
             }
 
-            return true;
+            return retorno;
         }
     }
 }

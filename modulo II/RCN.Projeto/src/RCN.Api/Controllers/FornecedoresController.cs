@@ -15,8 +15,8 @@ using RCN.Data.Context;
 
 namespace RCN.Api.Controllers
 {
-    [Route("api/[controller]")]
-    
+    [Route("api/v1/[controller]")]
+
     public class FornecedoresController : MainController
     {
         private readonly IFornecedorRepository _fornecedorRepository;
@@ -29,7 +29,7 @@ namespace RCN.Api.Controllers
             IFornecedorService fornecedorService,
             IMapper mapper,
             INotificador notificador
-        ): base(notificador)
+        ) : base(notificador)
         {
             _fornecedorRepository = fornecedorRepository;
             _fornecedorService = fornecedorService;
@@ -37,6 +37,7 @@ namespace RCN.Api.Controllers
         }
 
         [HttpGet]
+        //[ResponseCache(Duration = 20)]
         public async Task<ActionResult<IEnumerable<FornecedorViewModel>>> GetFornecedores()
         {
             return Ok(await _fornecedorRepository.Obter());
@@ -77,7 +78,7 @@ namespace RCN.Api.Controllers
 
             await _fornecedorService.Inserir(_mapper.Map<Fornecedor>(fornecedorVM));
 
-           return Result("Regitro incluido com sucesso");
+            return Result("Regitro incluido com sucesso");
         }
 
         [HttpDelete("{id}")]

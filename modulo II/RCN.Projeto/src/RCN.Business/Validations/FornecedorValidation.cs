@@ -3,6 +3,7 @@ using RCN.Business.Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using static RCN.Business.Validations.Personalizados.Documentos;
 
 namespace RCN.Business.Validations
 {
@@ -17,14 +18,20 @@ namespace RCN.Business.Validations
 
             When(f => f.TipoFornecedor == TipoFornecedor.Fisica, () =>
             {
-                RuleFor(f => f.Documento.Length).Equal(11)
-                       .WithMessage("O documento precisa ter 11 caracteres");
+                RuleFor(f => f.Documento.Length).Equal(CpfValidacao.TamanhoCpf)
+                .WithMessage("O documento precisa ter 11 caracteres");
+
+                RuleFor(f => CpfValidacao.Validar(f.Documento)).Equal(true)
+                .WithMessage("CPF inválido");
             });
 
             When(f => f.TipoFornecedor == TipoFornecedor.Juridica, () =>
             {
-                RuleFor(f => f.Documento.Length).Equal(14)
-                       .WithMessage("O documento precisa ter 14 caracteres");
+                RuleFor(f => f.Documento.Length).Equal(CnpjValidacao.TamanhoCnpj)
+                .WithMessage("O documento precisa ter 14 caracteres");
+
+                RuleFor(f => CnpjValidacao.Validar(f.Documento)).Equal(true)
+                .WithMessage("CNPJ inválido");
             });
         }
     }
