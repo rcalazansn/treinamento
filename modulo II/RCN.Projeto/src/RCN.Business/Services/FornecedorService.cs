@@ -3,9 +3,12 @@ using RCN.Business.Interfaces.Services;
 using RCN.Business.Model;
 using RCN.Business.Notificacoes;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using RCN.Business.Validations;
+using FluentValidation.Results;
 
 namespace RCN.Business.Services
 {
@@ -26,8 +29,15 @@ namespace RCN.Business.Services
         public async Task<bool> Editar(Fornecedor fornecedor)
         {
             //Validar se o documento é valido (CPF/CNPJ)
+            if (!EfetuarValidacao(new FornecedorValidation(), fornecedor)) return false;
 
             //Validar se ja existe registro com o documento
+            if (_fornecedorRepository
+                .Buscar(f => f.Documento == fornecedor.Documento && f.Id != fornecedor.Id).Result.Any())
+            {
+                Notificar("Já existe um fornecedor com este documento");
+                return false;
+            }
 
             await _fornecedorRepository.Editar(fornecedor);
             return true;
@@ -36,15 +46,14 @@ namespace RCN.Business.Services
         public async Task<bool> Inserir(Fornecedor fornecedor)
         {
             //Validar se o documento é valido (CPF/CNPJ)
+            if (!EfetuarValidacao(new FornecedorValidation(), fornecedor)) return false;
 
             //Validar se ja existe registro com o documento
-
-            if (fornecedor.Documento == "11111111111")
+            if (_fornecedorRepository.Buscar(f => f.Documento == fornecedor.Documento).Result.Any())
             {
-                Notificar("documento invalido!");
+                Notificar("Já existe um fornecedor com este documento");
                 return false;
             }
-           
 
             await _fornecedorRepository.Inserir(fornecedor);
             return true;

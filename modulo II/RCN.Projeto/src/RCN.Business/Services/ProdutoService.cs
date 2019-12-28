@@ -2,9 +2,7 @@
 using RCN.Business.Interfaces.Services;
 using RCN.Business.Model;
 using RCN.Business.Notificacoes;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using RCN.Business.Validations;
 using System.Threading.Tasks;
 
 namespace RCN.Business.Services
@@ -30,12 +28,16 @@ namespace RCN.Business.Services
 
         public async Task<bool> Editar(Produto produto)
         {
+            if (!EfetuarValidacao(new ProdutoValidation(), produto)) return false;
+
             await _produtoRepository.Editar(produto);
             return true;
         }
 
         public async Task<bool> Inserir(Produto produto)
         {
+            if (!EfetuarValidacao(new ProdutoValidation(), produto)) return false;
+
             await _produtoRepository.Inserir(produto);
             return true;
         }

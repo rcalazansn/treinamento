@@ -1,4 +1,7 @@
-﻿using RCN.Business.Notificacoes;
+﻿using FluentValidation;
+using FluentValidation.Results;
+using RCN.Business.Model;
+using RCN.Business.Notificacoes;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -17,6 +20,25 @@ namespace RCN.Business.Services
         protected void Notificar(string mensagem)
         {
             _notificador.Handle(new Notificacao(mensagem));
+        }
+
+        protected bool EfetuarValidacao<V, E>(V validacao, E entidade)
+            where V : AbstractValidator<E>
+            where E : Entity
+        {
+            ValidationResult result = validacao.Validate(entidade);
+
+            if (!result.IsValid)
+            {
+                foreach (var err in result.Errors)
+                {
+                    Notificar(err.ErrorMessage);
+                }
+
+                return false;
+            }
+
+            return true;
         }
     }
 }
