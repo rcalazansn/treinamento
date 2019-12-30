@@ -13,7 +13,7 @@ using RCN.Business.Model;
 using RCN.Business.Notificacoes;
 using RCN.Data.Context;
 
-namespace RCN.Api.Controllers
+namespace RCN.Api.Controllers.V1
 {
     [Route("api/v1/[controller]")]
     public class ProdutosController : MainController

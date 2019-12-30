@@ -1,28 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO.Compression;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using HealthChecks.UI.Client;
+using KissLog;
+using KissLog.Apis.v1.Listeners;
+using KissLog.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using RCN.Api.Configurations;
 using RCN.Api.Extensions;
-using RCN.Business.Interfaces;
-using RCN.Business.Notificacoes;
 using RCN.Data.Context;
-using RCN.Data.Repository;
-using Swashbuckle.AspNetCore.Swagger;
+using System.IO.Compression;
 
 namespace RCN.Api
 {
@@ -37,6 +31,19 @@ namespace RCN.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
+            // services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            //services.AddScoped<KissLog.ILogger>((context) =>
+            //{
+            //    return KissLog.Logger.Factory.Get();
+            //});
+
+            services.AddApiVersioning(options =>
+            {
+                options.AssumeDefaultVersionWhenUnspecified = true;
+                options.DefaultApiVersion = new Microsoft.AspNetCore.Mvc.ApiVersion(1, 0);
+                options.ReportApiVersions = true; //API Headers
+            });
+
             services.AddDbContext<ApiContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("sql"));
@@ -63,6 +70,14 @@ namespace RCN.Api
                 options.Level = CompressionLevel.Optimal;
             });
 
+
+            services.AddVersionedApiExplorer(options =>
+            {
+                options.GroupNameFormat = "'v'VVV";
+                options.SubstituteApiVersionInUrl = true; //Se nao colocar versão, é adicionado versão padrao
+            });
+
+
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddXmlDataContractSerializerFormatters() // permite retornar em XML
@@ -81,8 +96,19 @@ namespace RCN.Api
             services.AddSwaggerConfig();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure
+        (
+            IApplicationBuilder app, 
+            IHostingEnvironment env, 
+            ILoggerFactory loggerFactory
+        )
         {
+            loggerFactory.AddFile
+            (
+                "log/rcn-{Date}.txt", 
+                Microsoft.Extensions.Logging.LogLevel.Error
+            );
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -108,6 +134,14 @@ namespace RCN.Api
             });
 
             app.UseHealthChecksUI(); // /healthchecks-ui 
+
+            // make sure it is added after app.UseStaticFiles() and app.UseSession(), and before app.UseMvc()
+            app.UseKissLogMiddleware(options => {
+                options.Listeners.Add(new KissLogApiListener(new KissLog.Apis.v1.Auth.Application(
+                    Configuration["KissLog.OrganizationId"],
+                    Configuration["KissLog.ApplicationId"])
+                ));
+            });
 
             app.UseMvc();
         }
