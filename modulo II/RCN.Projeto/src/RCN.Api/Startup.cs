@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -48,6 +49,14 @@ namespace RCN.Api
             {
                 options.UseSqlServer(Configuration.GetConnectionString("sql"));
             });
+
+
+            services.Configure<RCNSettings>(Configuration);
+            RCNSettings settings = Configuration.Get<RCNSettings>();
+
+            System.Console.WriteLine(settings.EmailConfig.Email);
+
+
 
             services.AddAutoMapper(typeof(Startup));
 
@@ -100,7 +109,8 @@ namespace RCN.Api
         (
             IApplicationBuilder app, 
             IHostingEnvironment env, 
-            ILoggerFactory loggerFactory
+            ILoggerFactory loggerFactory,
+            IApiVersionDescriptionProvider provider
         )
         {
             loggerFactory.AddFile
@@ -118,7 +128,7 @@ namespace RCN.Api
                 app.UseHsts();
             }
 
-            app.UseSwaggerConfig();
+            app.UseSwaggerConfig(provider);
 
             app.UseResponseCaching();
 

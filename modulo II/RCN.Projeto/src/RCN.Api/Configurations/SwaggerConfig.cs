@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using System.Linq;
 
 namespace RCN.Api.Configurations
 {
@@ -13,19 +14,30 @@ namespace RCN.Api.Configurations
         {
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "RCN API", Version = "v1" });
+                // c.SwaggerDoc("v1", new Info { Title = "RCN API", Version = "v1" });
+
+                c.OperationFilter<SwaggerDefaultValues>();
             });
 
             return services;
         }
 
-        public static IApplicationBuilder UseSwaggerConfig(this IApplicationBuilder app)
+        public static IApplicationBuilder UseSwaggerConfig
+        (
+            this IApplicationBuilder app,
+            IApiVersionDescriptionProvider provider
+        )
         {
             app.UseSwagger();
 
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "RCN.API V1");
+                foreach (var item in provider.ApiVersionDescriptions)
+                {
+                    c.SwaggerEndpoint($"/swagger/{item.GroupName}/swagger.json",
+                                      item.GroupName);
+                }
+
                 c.RoutePrefix = string.Empty;
             });
 
