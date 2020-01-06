@@ -53,5 +53,10 @@ namespace RCN.Api.Controllers
                 _notificador.Handle(new Notificacao(mensagemErro));
             }
         }
+
+        protected void NotificarErro(string erro)
+        {
+            _notificador.Handle(new Notificacao(erro));
+        }
     }
 }

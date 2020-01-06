@@ -15,6 +15,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using RCN.Api.Configurations;
+using RCN.Api.Data;
 using RCN.Api.Extensions;
 using RCN.Data.Context;
 using System.IO.Compression;
@@ -50,6 +51,7 @@ namespace RCN.Api
                 options.UseSqlServer(Configuration.GetConnectionString("sql"));
             });
 
+            services.AddIdentityConfig(Configuration);
 
             services.Configure<RCNSettings>(Configuration);
             RCNSettings settings = Configuration.Get<RCNSettings>();
