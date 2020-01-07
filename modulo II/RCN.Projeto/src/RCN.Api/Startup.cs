@@ -16,6 +16,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using RCN.Api.Configurations;
 using RCN.Api.Extensions;
+using RCN.Api.Middlewares;
 using RCN.Data.Context;
 using System.IO.Compression;
 
@@ -37,6 +38,8 @@ namespace RCN.Api
             //{
             //    return KissLog.Logger.Factory.Get();
             //});
+
+            services.AddTransient<ErrorHandlerMiddleware>();
 
             services.AddApiVersioning(options =>
             {
@@ -120,6 +123,7 @@ namespace RCN.Api
                 Microsoft.Extensions.Logging.LogLevel.Error
             );
 
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -137,7 +141,8 @@ namespace RCN.Api
 
             app.UseHttpsRedirection();
 
-            
+            app.UseMiddleware<ErrorHandlerMiddleware>();
+
             app.UseHealthChecks("/api/hc", new HealthCheckOptions
             {
                 Predicate = _ => true,
