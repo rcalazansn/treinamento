@@ -27,6 +27,7 @@ namespace RCN.Api.Configurations
                     .AddEntityFrameworkStores<ApplicationDbContext>()
                     .AddErrorDescriber<IdentityMensagensPortugues>();
 
+            //JWT
             var settingsSection = configuration.GetSection("SettingsJWT");
             services.Configure<SettingsJWT>(settingsSection);
 
