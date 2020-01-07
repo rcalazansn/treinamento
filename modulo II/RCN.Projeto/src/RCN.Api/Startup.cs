@@ -60,6 +60,10 @@ namespace RCN.Api
 
 
 
+       
+
+
+
             services.AddAutoMapper(typeof(Startup));
 
             services.AddApiConfig();
@@ -154,6 +158,8 @@ namespace RCN.Api
                     Configuration["KissLog.ApplicationId"])
                 ));
             });
+
+            app.UseAuthentication();
 
             app.UseMvc();
         }

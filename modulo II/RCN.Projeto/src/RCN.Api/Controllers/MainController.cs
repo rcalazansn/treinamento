@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using RCN.Business.Notificacoes;
 using System;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 namespace RCN.Api.Controllers
 {
     [ApiController]
+    [Authorize]
     public abstract class MainController : ControllerBase
     {
         private INotificador _notificador;

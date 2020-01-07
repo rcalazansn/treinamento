@@ -17,4 +17,13 @@ namespace RCN.Api.ViewModel
         [Compare("Senha", ErrorMessage = "As senhas não são iguais")]
         public string ConfirmacaoSenha { get; set; }
     }
+
+    public class LoginViewModel
+    {
+        [Required(ErrorMessage = "O campo {0} é obrigatório")]
+        public string Login { get; set; }
+
+        [Required(ErrorMessage = "O campo {0} é obrigatório")]
+        public string Senha { get; set; }
+    }
 }
