@@ -6,17 +6,17 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using RCN.Api.Data;
 using RCN.Api.Extensions;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace RCN.Api.Configurations
 {
     public static class IdentityConfig
     {
-        public static IServiceCollection AddIdentityConfig
-        (
-            this IServiceCollection services,
-            IConfiguration configuration
-        )
+        public static IServiceCollection AddIdentityConfig(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
             {
@@ -24,8 +24,10 @@ namespace RCN.Api.Configurations
             });
 
             services.AddDefaultIdentity<IdentityUser>()
-                    .AddEntityFrameworkStores<ApplicationDbContext>()
-                    .AddErrorDescriber<IdentityMensagensPortugues>();
+             .AddRoles<IdentityRole>()
+             .AddEntityFrameworkStores<ApplicationDbContext>()
+             .AddErrorDescriber<IdentityMensagensPortugues>(); ;
+
 
             //JWT
             var settingsSection = configuration.GetSection("SettingsJWT");

@@ -15,7 +15,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using RCN.Api.Configurations;
-using RCN.Api.Data;
 using RCN.Api.Extensions;
 using RCN.Data.Context;
 using System.IO.Compression;
@@ -57,10 +56,6 @@ namespace RCN.Api
             RCNSettings settings = Configuration.Get<RCNSettings>();
 
             System.Console.WriteLine(settings.EmailConfig.Email);
-
-
-
-       
 
 
 

@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace RCN.Api.Configurations
@@ -14,9 +15,22 @@ namespace RCN.Api.Configurations
         {
             services.AddSwaggerGen(c =>
             {
-                // c.SwaggerDoc("v1", new Info { Title = "RCN API", Version = "v1" });
-
                 c.OperationFilter<SwaggerDefaultValues>();
+
+                var security = new Dictionary<string, IEnumerable<string>>
+                {
+                    {"Bearer", new string[] { }}
+                };
+
+                c.AddSecurityDefinition("Bearer", new ApiKeyScheme
+                {
+                    Description = "Insira desta forma: Bearer {seu token}",
+                    Name = "Authorization",
+                    In = "header",
+                    Type = "apiKey"
+                });
+
+                c.AddSecurityRequirement(security);
             });
 
             return services;

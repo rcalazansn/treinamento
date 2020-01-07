@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -26,7 +27,7 @@ namespace RCN.Api.Controllers.V1
         public ProdutosController
         (
             IProdutoRepository produtoRepository,
-            IProdutoService produtoService, 
+            IProdutoService produtoService,
             IMapper mapper,
             INotificador notificador
         ) : base(notificador)

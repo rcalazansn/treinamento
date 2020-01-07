@@ -1,19 +1,26 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using RCN.Api.ViewModel;
 using RCN.Business.Interfaces;
 using RCN.Business.Interfaces.Services;
 using RCN.Business.Model;
 using RCN.Business.Notificacoes;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using RCN.Data.Context;
 
 namespace RCN.Api.Controllers.V1
 {
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiVersion("1.0")]
+    
     public class FornecedoresController : MainController
     {
         private readonly IFornecedorRepository _fornecedorRepository;
