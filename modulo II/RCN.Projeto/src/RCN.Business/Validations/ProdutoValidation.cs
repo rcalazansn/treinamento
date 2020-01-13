@@ -12,11 +12,11 @@ namespace RCN.Business.Validations
         {
             RuleFor(p => p.Nome)
                .Length(2, 200).WithMessage("Nome precisa ter entre 2 e 100 caracteres")
-               .Empty().WithMessage("Nome precisa ser fornecido");
+               .NotEmpty().WithMessage("Nome precisa ser fornecido");
 
             RuleFor(p => p.Descricao)
                .Length(2, 1000).WithMessage("Descrição precisa ter entre 2 e 100 caracteres")
-               .Empty().WithMessage("Descrição precisa ser fornecido");
+               .NotEmpty().WithMessage("Descrição precisa ser fornecido");
         }
     }
 }

@@ -77,6 +77,14 @@ namespace RCN.Api.Controllers.V1
         {
             if (!ModelState.IsValid) return Result(ModelState);
 
+            var nomeImagem = $"{Guid.NewGuid()}.jpg";
+            if(!UploadImagem(produtoVM.Imagem, nomeImagem))
+            {
+                return Result();
+            }
+
+            produtoVM.Imagem = nomeImagem;
+
             var prod = _mapper.Map<Produto>(produtoVM);
 
             await _produtoService.Inserir(prod);
@@ -96,6 +104,23 @@ namespace RCN.Api.Controllers.V1
             await _produtoService.Apagar(produto);
 
             return Result("Registro apagado com sucesso");
+        }
+
+        private bool UploadImagem(string imagemBase64, string nomeImagem)
+        {
+            if (string.IsNullOrEmpty(imagemBase64))
+            {
+                NotificarErro("Necessário informar uma imagem para o produto!");
+                return false;
+            }
+
+            var imagemByte = Convert.FromBase64String(imagemBase64);
+
+            var pathImgem = Path.Combine("c:","temp", nomeImagem);
+
+            System.IO.File.WriteAllBytes(pathImgem, imagemByte);
+
+            return true;
         }
     }
 }
