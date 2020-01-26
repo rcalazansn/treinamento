@@ -28,6 +28,13 @@ Swagger
 HealthChecks
 	https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks
 	
+Logger
+	https://docs.microsoft.com/pt-br/aspnet/core/fundamentals/logging/?view=aspnetcore-3.1
+	https://kisslog.net/
+	https://rafaelcruz.azurewebsites.net/2016/11/08/criando-log-estruturados-com-seq-e-serilog/
+	
+Microsoft.AspNetCore.Hosting 	
+	https://dotnet.microsoft.com/download/dotnet-core/2.2
 --------------------------------------------------------------------
 	
 comando Entity Framework(EF)
@@ -53,5 +60,7 @@ dotnet sln add src\RCN.Business
 dotnet sln add src\RCN.Data
 
 
+Imagem para Base65
+	https://www.base64-image.de/
 	
 	

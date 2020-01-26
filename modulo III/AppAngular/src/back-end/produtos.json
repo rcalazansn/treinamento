@@ -1,0 +1,51 @@
+{
+    "produtos": [{
+            "id": 1,
+            "descricao": "smartphone samsung galaxy S10",
+            "preco": 3634.33,
+            "precoPromocao": 2999.90,
+            "promocao": true,
+            "imagem": "smartphone_samsung.jpg"
+        },
+        {
+            "id": 2,
+            "descricao": "mouse gamer logitech hero",
+            "preco": 399.90,
+            "precoPromocao": 147.90,
+            "promocao": true,
+            "imagem": "mouse_gamer_logitech.jpg"
+        },
+        {
+            "id": 3,
+            "descricao": "iMac apple intel core",
+            "preco": 7599.90,
+            "precoPromocao": 0,
+            "promocao": false,
+            "imagem": "imac_apple_intel_core.jpg"
+        },
+        {
+            "id": 4,
+            "descricao": "Game Spider-Man Game of The Year Edition",
+            "preco": 137.90,
+            "precoPromocao": 0,
+            "promocao": false,
+            "imagem": "game_spider_man_ps4.jpg"
+        },
+        {
+            "id": 5,
+            "descricao": "cadeira gamer sports elise",
+            "preco": 917.53,
+            "precoPromocao": 779.90,
+            "promocao": true,
+            "imagem": "cadeira_gamer_dt3_sports_elise.jpg"
+        },
+        {
+            "id": 6,
+            "descricao": "teclado mecânico gamer logitech carbon",
+            "preco": 699.90,
+            "precoPromocao": 349.90,
+            "promocao": true,
+            "imagem": "teclado_mecanico_gamer_logitech_carbon.jpg"
+        }
+    ]
+}
