@@ -1,24 +1,28 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit, AfterViewInit, ElementRef, ViewChildren } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, FormControl, FormControlName } from '@angular/forms';
+import { Usuario } from 'src/app/models/usuario';
+import { NgBrazilValidators } from 'ng-brazil';
 
 import { utilsBr } from 'js-brasil';
-import { NgBrazilValidators } from 'ng-brazil';
 import { CustomValidators } from 'ng2-validation';
-import { GenericValidator, DisplayMessage, ValidationMessages } from 'src/app/generic-validator';
+import { GenericValidator, ValidationMessages, DisplayMessage } from 'src/app/generic-validator';
+import { Observable, fromEvent, merge } from 'rxjs';
 
 @Component({
   selector: 'rcn-cadastro',
-  templateUrl: './cadastro.component.html',
-  styles: []
+  templateUrl: './cadastro.component.html'
 })
-export class CadastroComponent implements OnInit {
+export class CadastroComponent implements OnInit, AfterViewInit {
+
+  @ViewChildren(FormControlName, { read: ElementRef }) formInputElements: ElementRef[];
 
   cadastroForm: FormGroup;
+  usuario: Usuario;
 
-  public MASKS = utilsBr.MASKS;
+  MASKS = utilsBr.MASKS;
 
-  validationMessages: ValidationMessages;
   genericValidator: GenericValidator;
+  validationMessages: ValidationMessages;
   displayMessage: DisplayMessage = {};
 
   constructor(private fb: FormBuilder) {
@@ -51,11 +55,8 @@ export class CadastroComponent implements OnInit {
   }
 
   ngOnInit() {
-
-    //Fase 0
     //let nome = new FormControl('');
 
-    //Fase 1
     // this.cadastroForm = new FormGroup({
     //   nome: new FormControl(''),
     //   email: new FormControl(''),
@@ -64,35 +65,45 @@ export class CadastroComponent implements OnInit {
     //   confirmarSenha: new FormControl('')
     // });
 
-    //Fase 2
+
     // this.cadastroForm = this.fb.group({
-    //   nome: ['', [Validators.required, CustomValidators.rangeLength([3, 15])]],
-    //   email: ['', [Validators.required, Validators.email]],
-    //   cpf: ['', [Validators.required, NgBrazilValidators.cpf]],
-    //   senha: ['', [Validators.required, CustomValidators.rangeLength([6, 10])]],
-    //   confirmarSenha: ['', [Validators.required, CustomValidators.rangeLength([6, 10])]],
+    //   nome: ['', Validators.required],
+    //   email: ['',[Validators.required, Validators.email]],
+    //   cpf: ['',[Validators.required,NgBrazilValidators.cpf]],
+    //   senha: ['', CustomValidators.rangeLength([6, 15])],
+    //   confirmarSenha: [''],
     // });
 
-    //Fase 3
-
-    let senha = new FormControl('', [Validators.required, CustomValidators.rangeLength([6, 10])]);
+    let senha = new FormControl('', [Validators.required, CustomValidators.rangeLength([6, 15])]);
     let confirmarSenha = new FormControl('',
       [
         Validators.required,
-        CustomValidators.rangeLength([6, 10]),
+        CustomValidators.rangeLength([6, 15]),
         CustomValidators.equalTo(senha)
       ]);
 
     this.cadastroForm = this.fb.group({
-      nome: ['', [Validators.required, CustomValidators.rangeLength([3, 15])]],
+      nome: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       cpf: ['', [Validators.required, NgBrazilValidators.cpf]],
-      senha: ['', senha],
-      confirmarSenha: ['', confirmarSenha],
+      senha: senha,
+      confirmarSenha: confirmarSenha,
+    });
+  }
+
+  ngAfterViewInit(): void {
+    let controlBlurs: Observable<any>[] = this.formInputElements
+      .map((formControl: ElementRef) => fromEvent(formControl.nativeElement, 'blur'));
+
+    merge(...controlBlurs).subscribe(() => {
+      this.displayMessage = this.genericValidator.processarMensagens(this.cadastroForm);
     });
   }
 
   salvar() {
-    console.log(this.cadastroForm.value);
+    // let x = this.cadastroForm.value;
+
+    this.usuario = Object.assign({}, this.usuario, this.cadastroForm.value);
   }
+
 }

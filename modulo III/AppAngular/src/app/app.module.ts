@@ -1,6 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { NgBrazil } from 'ng-brazil' 
+import { TextMaskModule } from 'angular2-text-mask';
 
 import { AppComponent } from './app.component';
 import { MenuComponent } from './comum/menu/menu.component';
@@ -15,6 +18,8 @@ import { DataBindingComponent } from './exemplos/data-binding/data-binding.compo
 import { HttpClientModule } from '@angular/common/http';
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
+import { CadastroComponent } from './exemplos/cadastro/cadastro.component';
+import { CustomFormsModule } from 'ng2-validation';
 registerLocaleData(localePt);
 
 @NgModule({
@@ -26,12 +31,17 @@ registerLocaleData(localePt);
     ContatoComponent,
     NaoEncontradaComponent,
     HomeComponent,
-    DataBindingComponent
+    DataBindingComponent,
+    CadastroComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
+    ReactiveFormsModule,
+    TextMaskModule,
+    NgBrazil,
+    CustomFormsModule,
     [RouterModule.forRoot(rootRouterConfig, { useHash: false })]
   ],
   providers: [],

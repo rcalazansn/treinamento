@@ -6,7 +6,13 @@
         "AppAngular": {
             "projectType": "application",
             "schematics": {
-
+                "@schematics/angular:component": {
+                    "inlineStyle": true,
+                    "spec": false
+                },
+                "@schematics/angular:class": {
+                    "spec": false
+                }
             },
             "root": "",
             "sourceRoot": "src",
