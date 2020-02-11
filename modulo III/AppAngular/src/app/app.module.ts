@@ -6,13 +6,7 @@ import { NgBrazil } from 'ng-brazil'
 import { TextMaskModule } from 'angular2-text-mask';
 
 import { AppComponent } from './app.component';
-import { MenuComponent } from './comum/menu/menu.component';
-import { FooterComponent } from './comum/footer/footer.component';
-import { ListaProdutosComponent } from './paginas/lista-produtos/lista-produtos.component';
 import { ContatoComponent } from './paginas/contato/contato.component';
-import { RouterModule } from '@angular/router';
-import { rootRouterConfig } from './app.routes';
-import { NaoEncontradaComponent } from './comum/nao-encontrada/nao-encontrada.component';
 import { HomeComponent } from './paginas/home/home.component';
 import { DataBindingComponent } from './exemplos/data-binding/data-binding.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -20,16 +14,14 @@ import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 import { CadastroComponent } from './exemplos/cadastro/cadastro.component';
 import { CustomFormsModule } from 'ng2-validation';
+import { ComumModule } from './comum/comum.module';
+import { AppRoutingModule } from './app.routes';
 registerLocaleData(localePt);
 
 @NgModule({
   declarations: [
     AppComponent,
-    MenuComponent,
-    FooterComponent,
-    ListaProdutosComponent,
     ContatoComponent,
-    NaoEncontradaComponent,
     HomeComponent,
     DataBindingComponent,
     CadastroComponent
@@ -38,11 +30,14 @@ registerLocaleData(localePt);
     BrowserModule,
     FormsModule,
     HttpClientModule,
+
+    ComumModule,
+
     ReactiveFormsModule,
     TextMaskModule,
     NgBrazil,
     CustomFormsModule,
-    [RouterModule.forRoot(rootRouterConfig, { useHash: false })]
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

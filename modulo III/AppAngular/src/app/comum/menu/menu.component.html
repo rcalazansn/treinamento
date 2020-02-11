@@ -9,29 +9,35 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
 
-                <li class="nav-item">
-                    <a class="nav-link" [routerLink]="['/cadastro']">
+                <li class="nav-item" *ngFor="let m of Menu">
+                    <a class="nav-link" routerLinkActive="active" [routerLink]="m.link">
+                        <i class="{{m.icone}}" aria-hidden="true"></i> {{m.descricao}}
+                    </a>
+                </li>
+
+                <!-- <li class="nav-item">
+                    <a class="nav-link" routerLinkActive="active" [routerLink]="['/cadastro']">
                         <i class="fa fa-hand-spock-o" aria-hidden="true"></i> Cadastro
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" [routerLink]="['/data-binding']">
+                    <a class="nav-link" routerLinkActive="active" [routerLink]="['/data-binding']">
                         <i class="fa fa-hand-spock-o" aria-hidden="true"></i> DataBinding
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" [routerLink]="['/produtos']">
+                    <a class="nav-link" routerLinkActive="active" [routerLink]="['/produtos']">
                         <i class="fa fa-picture-o" aria-hidden="true"></i> Produtos
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" [routerLink]="['/contato']">
+                    <a class="nav-link" routerLinkActive="active" [routerLink]="['/contato']">
                         <i class="fa fa-bullhorn" aria-hidden="true"></i> Contato
                     </a>
-                </li>
+                </li> -->
             </ul>
         </div>
     </div>

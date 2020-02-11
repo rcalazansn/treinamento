@@ -22,5 +22,11 @@ export class ListaProdutosComponent implements OnInit {
       );
   }
 
+  produtoSelecionado(prd: Produto) {
+    console.log('=>', event);
+
+    prd.promocao = !prd.promocao;
+  }
+
 
 }
