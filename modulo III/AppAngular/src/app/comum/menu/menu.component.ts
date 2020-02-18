@@ -17,6 +17,7 @@ export class MenuComponent implements OnInit {
     this.Menu.push({ descricao: 'DataBinding', icone: 'fa fa-hand-spock-o', link: '/data-binding' });
     this.Menu.push({ descricao: 'Produtos', icone: 'fa fa-picture-o', link: '/produtos' });
     this.Menu.push({ descricao: 'Contato', icone: 'fa fa-bullhorn', link: '/contato' });
+    this.Menu.push({ descricao: 'Admin', icone: 'fa fa-cogs', link: '/admin' });
   }
 
 

@@ -3,9 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Produto } from '../models/produto';
 import { Observable } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class ProdutoService {
 
   protected urlApi: string = "http://localhost:3000/produtos";
@@ -14,5 +12,9 @@ export class ProdutoService {
 
   obterProdutos(): Observable<Produto[]> {
     return this.http.get<Produto[]>(this.urlApi);
+  }
+
+  obterProduto(id: number): Observable<Produto> {
+    return this.http.get<Produto>(`${this.urlApi}/${id}`);
   }
 }

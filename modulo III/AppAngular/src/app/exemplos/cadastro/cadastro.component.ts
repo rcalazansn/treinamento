@@ -16,6 +16,8 @@ export class CadastroComponent implements OnInit, AfterViewInit {
 
   @ViewChildren(FormControlName, { read: ElementRef }) formInputElements: ElementRef[];
 
+  alteracoesPendentes: boolean;
+
   cadastroForm: FormGroup;
   usuario: Usuario;
 
@@ -55,25 +57,6 @@ export class CadastroComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    //let nome = new FormControl('');
-
-    // this.cadastroForm = new FormGroup({
-    //   nome: new FormControl(''),
-    //   email: new FormControl(''),
-    //   cpf: new FormControl(''),
-    //   senha: new FormControl(''),
-    //   confirmarSenha: new FormControl('')
-    // });
-
-
-    // this.cadastroForm = this.fb.group({
-    //   nome: ['', Validators.required],
-    //   email: ['',[Validators.required, Validators.email]],
-    //   cpf: ['',[Validators.required,NgBrazilValidators.cpf]],
-    //   senha: ['', CustomValidators.rangeLength([6, 15])],
-    //   confirmarSenha: [''],
-    // });
-
     let senha = new FormControl('', [Validators.required, CustomValidators.rangeLength([6, 15])]);
     let confirmarSenha = new FormControl('',
       [
@@ -97,13 +80,13 @@ export class CadastroComponent implements OnInit, AfterViewInit {
 
     merge(...controlBlurs).subscribe(() => {
       this.displayMessage = this.genericValidator.processarMensagens(this.cadastroForm);
+      this.alteracoesPendentes = true;
     });
   }
 
   salvar() {
     // let x = this.cadastroForm.value;
-
-    this.usuario = Object.assign({}, this.usuario, this.cadastroForm.value);
+    this.alteracoesPendentes = false;
   }
 
 }

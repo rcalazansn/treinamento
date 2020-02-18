@@ -25,13 +25,24 @@
             </div>
 
             <div *ngIf="!produto.promocao">
-                <h4>{{produto.preco | currency:'BRL':symbol:'1.2-2':'pt'}}</h4>
+                <h4>
+                    <br>
+                    <p>{{produto.preco | currency:'BRL':symbol:'1.2-2':'pt'}}</p>
+                </h4>
             </div>
         </div>
 
         <div class="card-footer">
-            <a class="btn btn-success text-white" (click)="comprar()">
+            <a class="btn btn-info text-white btn-block" (click)="promocao()">
+                <span class="fa fa-gift"></span> Promoção
+            </a>
+
+            <a class="btn btn-success text-white btn-block">
                 <span class="fa fa-shopping-cart"></span> Comprar
+            </a>
+
+            <a class="btn btn-secondary text-white btn-block" [routerLink]="['visualizar', produto.id]">
+                <span class="fa fa-eye"></span> Visualizar
             </a>
         </div>
     </div>

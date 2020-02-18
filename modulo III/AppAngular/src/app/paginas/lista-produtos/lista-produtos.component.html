@@ -2,6 +2,8 @@
 
     <rcn-total-produto-promocao [produtos]="listaProdutos"></rcn-total-produto-promocao>
 
+
+
     <div class="row text-center">
 
         <rcn-produto-card class="col-md-4" *ngFor="let prd of listaProdutos" [produto]="prd" (selecionado)="produtoSelecionado($event)">

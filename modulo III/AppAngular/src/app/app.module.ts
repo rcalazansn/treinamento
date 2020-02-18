@@ -16,6 +16,8 @@ import { CadastroComponent } from './exemplos/cadastro/cadastro.component';
 import { CustomFormsModule } from 'ng2-validation';
 import { ComumModule } from './comum/comum.module';
 import { AppRoutingModule } from './app.routes';
+import { AuthGuardService } from './services/auth-guard.service';
+import { CadastroGuardService } from './exemplos/cadastro/cadastro-guard.service';
 registerLocaleData(localePt);
 
 @NgModule({
@@ -39,7 +41,7 @@ registerLocaleData(localePt);
     CustomFormsModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [AuthGuardService, CadastroGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

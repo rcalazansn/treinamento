@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Produto } from 'src/app/models/produto';
-import { ProdutoService } from 'src/app/services/produto.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'rcn-lista-produtos',
@@ -10,16 +10,10 @@ export class ListaProdutosComponent implements OnInit {
 
   public listaProdutos: Produto[];
 
-  constructor(private produtosService: ProdutoService) { }
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.produtosService.obterProdutos()
-      .subscribe(prd => {
-        this.listaProdutos = prd;
-        console.log(prd);
-      },
-        error => console.log(error)
-      );
+    this.listaProdutos = this.route.snapshot.data['produtos'];
   }
 
   produtoSelecionado(prd: Produto) {
