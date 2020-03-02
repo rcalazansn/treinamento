@@ -2,11 +2,13 @@
 
     <rcn-total-produto-promocao [produtos]="listaProdutos"></rcn-total-produto-promocao>
 
-
-
+    <div class="text-center">
+        <input class="rounded" type="search" placeholder="Buscar" autofocus (keyup)="debounce.next($event.target.value)">
+    </div>
+    <br>
     <div class="row text-center">
 
-        <rcn-produto-card class="col-md-4" *ngFor="let prd of listaProdutos" [produto]="prd" (selecionado)="produtoSelecionado($event)">
+        <rcn-produto-card class="col-md-4" *ngFor="let prd of listaProdutos | filtrarPorDescricao:filtro" [produto]="prd" (selecionado)="produtoSelecionado($event)">
 
         </rcn-produto-card>
 

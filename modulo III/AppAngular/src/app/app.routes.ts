@@ -11,11 +11,13 @@ import { CadastroComponent } from './exemplos/cadastro/cadastro.component';
 import { NgModule } from '@angular/core';
 import { AuthGuardService } from './services/auth-guard.service';
 import { CadastroGuardService } from './exemplos/cadastro/cadastro-guard.service';
+import { ZonasComponent } from './exemplos/zonas/zonas.component';
 
 const rootRouterConfig: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: 'home', component: HomeComponent },
     { path: 'contato', component: ContatoComponent },
+    { path: 'zonas', component: ZonasComponent },
     {
         path: 'produtos',
         loadChildren: () => import('./paginas/lista-produtos/lista-produtos.module')

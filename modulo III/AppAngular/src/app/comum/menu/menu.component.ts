@@ -13,6 +13,7 @@ export class MenuComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.Menu.push({ descricao: 'Zonas Angular', icone: 'fa fa-fire', link: '/zonas' });
     this.Menu.push({ descricao: 'Cadastro', icone: 'fa fa-hand-spock-o', link: '/cadastro' });
     this.Menu.push({ descricao: 'DataBinding', icone: 'fa fa-hand-spock-o', link: '/data-binding' });
     this.Menu.push({ descricao: 'Produtos', icone: 'fa fa-picture-o', link: '/produtos' });

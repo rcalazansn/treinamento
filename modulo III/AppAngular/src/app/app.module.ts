@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { NgBrazil } from 'ng-brazil' 
@@ -18,6 +18,8 @@ import { ComumModule } from './comum/comum.module';
 import { AppRoutingModule } from './app.routes';
 import { AuthGuardService } from './services/auth-guard.service';
 import { CadastroGuardService } from './exemplos/cadastro/cadastro-guard.service';
+import { ZonasModule } from './exemplos/zonas/zonas.module';
+import { GlobalErrorHandler } from './comum/global-error-handler';
 registerLocaleData(localePt);
 
 @NgModule({
@@ -39,9 +41,15 @@ registerLocaleData(localePt);
     TextMaskModule,
     NgBrazil,
     CustomFormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+
+    ZonasModule
   ],
-  providers: [AuthGuardService, CadastroGuardService],
+  providers: [
+    AuthGuardService, 
+    CadastroGuardService,
+    { provide: ErrorHandler, useClass: GlobalErrorHandler }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
