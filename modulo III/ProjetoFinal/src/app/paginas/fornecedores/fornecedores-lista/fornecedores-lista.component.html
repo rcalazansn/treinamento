@@ -1,0 +1,56 @@
+<div class="card">
+    <div class="card-header">
+
+        <div class="float-left">
+            <h4>Fornecedores</h4>
+        </div>
+
+        <div class="float-right">
+            <button class="btn btn-outline-primary" [routerLink]="['fornecedor']">
+                <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Novo
+            </button>
+        </div>
+
+
+    </div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Nome</th>
+                    <th scope="col" class="text-center">Documento</th>
+                    <th scope="col" class="text-center">Ativo</th>
+                    <th scope="col" class="text-center">Dt. Cadastro</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr *ngFor="let f of fornecedores">
+                    <td>{{f.nome}}</td>
+                    <td class="text-center">{{f.documento}}</td>
+                    <td class="text-center" [ngSwitch]="f.ativo">
+                        <p *ngSwitchCase="true">
+                            <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                        </p>
+                        <p *ngSwitchCase="false">
+                            <i class="fa fa-square-o" aria-hidden="true"></i>
+                        </p>
+                    </td>
+                    <td class="text-center">{{f.dataCadastro | date:'dd/MM/yyyy'}}</td>
+
+                    <td>
+                        <span class="float-right">
+                            <a class="btn btn-outline-info" [routerLink]="['fornecedor', f.id]">
+                                <i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;Editar
+                            </a>
+                            &nbsp;
+                            <a class="btn btn-outline-danger">
+                                <i class="fa fa-trash" aria-hidden="true"></i>&nbsp;Apagar
+                            </a>
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
