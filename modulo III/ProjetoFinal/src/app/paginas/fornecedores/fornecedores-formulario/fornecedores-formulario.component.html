@@ -1,1 +1,85 @@
-<p>fornecedores-formulario works!</p>
+<div class="card">
+    <div class="card-header">
+        <div class="float-left">
+            <h4>{{titulo}}</h4>
+        </div>
+    </div>
+
+    <div class="card-body">
+        <form [formGroup]="formulario" (ngSubmit)="salvar()">
+
+            <div class="alert alert-danger" *ngIf="errors.length > 0">
+                <!-- <p  *ngFor="let erro of errors">
+                    {{erro}}
+                </p> -->
+                <ul>
+                    <li *ngFor="let erro of errors">
+                        {{erro}}
+                    </li>
+                </ul>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label>Nome</label>
+                    <input type="text" class="form-control" formControlName="nome" [ngClass]="{'is-invalid': displayMessage.nome }">
+
+                    <span class="text-danger" *ngIf="displayMessage.nome">
+                        <p [innerHTML]="displayMessage.nome"></p>
+                    </span>
+                </div>
+
+                <div class="form-group col-2">
+                    <label>Tipo</label>
+                    <select class="form-control" formControlName="tipoFornecedor" [ngClass]="{'is-invalid': displayMessage.tipoFornecedor }">
+                        <option value="">Selecione</option>
+                        <option value="0">Fisica</option>
+                        <option value="1">Juridica</option>
+                    </select>
+
+                    <span class="text-danger" *ngIf="displayMessage.tipoFornecedor">
+                        <p [innerHTML]="displayMessage.tipoFornecedor"></p>
+                    </span>
+                </div>
+
+                <div class="form-group col-md-2">
+                    <label>Ativo?</label>
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                          <input 
+                            formControlName="ativo" 
+                            class="form-check-input" 
+                            type="checkbox"> Sim
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    <label>CPF/CNPJ</label>
+                    <input type="text" mask="00000000000999" class="form-control" formControlName="documento" [ngClass]="{'is-invalid': displayMessage.documento }">
+
+                    <span class="text-danger" *ngIf="displayMessage.documento">
+                        <p [innerHTML]="displayMessage.documento"></p>
+                    </span>
+                </div>
+            </div>
+
+            <div class="float-left">
+                <button (click)="voltar()" class="btn btn-warning ml-2">
+                    <i class="fa fa-chevron-left" aria-hidden="true"></i>&nbsp;Voltar
+                </button>
+            </div>
+
+            <div class="float-right">
+                <button class="btn btn-success" [disabled]="!formulario.valid || clickSalvar">
+                    <i *ngIf="!clickSalvar" class="fa fa-floppy-o" aria-hidden="true"></i>
+                    <i *ngIf="clickSalvar" class="fa fa-refresh fa-spin" aria-hidden="true"></i>
+                    &nbsp;Salvar
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>

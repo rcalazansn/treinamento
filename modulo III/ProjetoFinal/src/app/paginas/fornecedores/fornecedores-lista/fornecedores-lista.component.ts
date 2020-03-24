@@ -21,4 +21,14 @@ export class FornecedoresListaComponent implements OnInit {
       );
   }
 
+  apagar(id: string) {
+    console.log(id);
+
+    this.service.Apagar(id)
+      .subscribe(
+        result => { this.fornecedores = this.fornecedores.filter(f => f.id !== id); },
+        fail => { console.log(fail); }
+      );
+  }
+
 }
