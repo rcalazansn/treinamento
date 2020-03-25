@@ -20,7 +20,6 @@ namespace RCN.Api.Controllers.V1
 {
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiVersion("1.0")]
-    
     public class FornecedoresController : MainController
     {
         private readonly IFornecedorRepository _fornecedorRepository;

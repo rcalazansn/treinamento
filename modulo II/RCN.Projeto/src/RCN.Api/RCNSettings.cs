@@ -8,6 +8,7 @@ namespace RCN.Api
     public class RCNSettings
     {
         public string Nome { get; set; }
+        public string PathImagemAngular { get; set; }
         public EmailConfig EmailConfig { get; set; }
     }
 

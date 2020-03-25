@@ -7,6 +7,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using RCN.Api.ViewModel;
 using RCN.Business.Interfaces;
 using RCN.Business.Interfaces.Services;
@@ -22,19 +23,21 @@ namespace RCN.Api.Controllers.V1
         private readonly IProdutoRepository _produtoRepository;
         private readonly IProdutoService _produtoService;
         private readonly IMapper _mapper;
-
+        protected readonly IOptions<RCNSettings> _settings;
 
         public ProdutosController
         (
             IProdutoRepository produtoRepository,
             IProdutoService produtoService,
             IMapper mapper,
-            INotificador notificador
+            INotificador notificador,
+            IOptions<RCNSettings> settings
         ) : base(notificador)
         {
             _produtoRepository = produtoRepository;
             _produtoService = produtoService;
             _mapper = mapper;
+            _settings = settings;
         }
 
         [HttpGet]
@@ -116,7 +119,7 @@ namespace RCN.Api.Controllers.V1
 
             var imagemByte = Convert.FromBase64String(imagemBase64);
 
-            var pathImgem = Path.Combine("c:","temp", nomeImagem);
+            var pathImgem = Path.Combine(_settings.Value.PathImagemAngular, nomeImagem);
 
             System.IO.File.WriteAllBytes(pathImgem, imagemByte);
 

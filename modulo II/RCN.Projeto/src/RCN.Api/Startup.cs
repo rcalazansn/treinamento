@@ -39,6 +39,8 @@ namespace RCN.Api
             //    return KissLog.Logger.Factory.Get();
             //});
 
+            services.AddCors();
+
             services.AddTransient<ErrorHandlerMiddleware>();
 
             services.AddApiVersioning(options =>
@@ -132,6 +134,13 @@ namespace RCN.Api
             {
                 app.UseHsts();
             }
+
+            app.UseCors(x =>
+            {
+                x.AllowAnyHeader();
+                x.AllowAnyMethod();
+                x.AllowAnyOrigin();
+            });
 
             app.UseSwaggerConfig(provider);
 
