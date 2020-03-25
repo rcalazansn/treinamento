@@ -1,17 +1,24 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <a class="navbar-brand" [routerLink]="['/']">Home</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <button (click)="toggleNavbar()" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup" [ngClass]="{'show' : navBarOpen}">
         <div class="navbar-nav">
             <a class="nav-item nav-link" routerLinkActive="active" [routerLink]="['/fornecedores']">
-            Fornecedores
-        </a>
+                <i class="fa fa-male" aria-hidden="true"></i>&nbsp;Fornecedores
+            </a>
 
             <a class="nav-item nav-link" routerLinkActive="active" [routerLink]="['/produtos']">
-            Produtos</a>
+                <i class="fa fa-gift" aria-hidden="true"></i>&nbsp;Produtos
+            </a>
+
+            <a class="nav-item nav-link" style="cursor: pointer;" (click)="logout()">
+                <i class="fa fa-lock" aria-hidden="true"></i>&nbsp;Logout
+            </a>
 
         </div>
     </div>
+
+
 </nav>

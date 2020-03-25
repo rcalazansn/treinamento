@@ -1,3 +1,11 @@
+<div class="alert alert-danger" *ngIf="errors.length > 0">
+    <ul>
+        <li *ngFor="let erro of errors">
+            {{erro}}
+        </li>
+    </ul>
+</div>
+
 <div class="wrapper fadeInDown">
     <div id="formContent">
         <!-- Tabs Titles -->
@@ -11,16 +19,18 @@
         <br>
 
         <!-- Login Form -->
-        <form>
-            <input type="text" id="login" class="fadeIn second" name="login" placeholder="Login">
-            <input type="text" id="password" class="fadeIn third" name="login" placeholder="Senha">
+        <form [formGroup]="formulario" (ngSubmit)="login()">
+            <input type="text" id="login" class="fadeIn second" name="login" placeholder="Login" formControlName="login">
+
+
+            <input type="text" id="password" class="fadeIn third" name="login" placeholder="Senha" formControlName="senha">
 
 
             <br>
             <br>
 
             <button class="btn btn-info">
-                <i class="fa fa-sign-in" aria-hidden="true"></i>
+                <i class="fa fa-sign-in" aria-hidden="true">&nbsp;Entrar</i>
             </button>
 
             <br>

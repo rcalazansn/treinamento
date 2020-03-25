@@ -1,1 +1,64 @@
-<p>produtos-lista works!</p>
+<div class="card">
+    <div class="card-header">
+
+        <div class="float-left">
+            <h4>Produtos</h4>
+        </div>
+
+        <div class="float-right">
+            <button class="btn btn-outline-primary" [routerLink]="['produto']">
+                <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Novo
+            </button>
+        </div>
+    </div>
+
+    <div class="card-body">
+        <div class="alert alert-danger" *ngIf="errors.length > 0">
+            <ul>
+                <li *ngFor="let erro of errors">
+                    {{erro}}
+                </li>
+            </ul>
+        </div>
+
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Nome</th>
+                    <th>Descrição</th>
+                    <th class="text-center">Ativo</th>
+                    <th class="text-center">Valor</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let p of produtos">
+                    <!-- <td>imagem</td> -->
+                    <img src="../../../../assets/{{p.imagem}}" title="{{p.imagem}}" alt="{{p.imagem}}" style="width: 70px; height: 100px">
+                    <td>{{p.nome}}</td>
+                    <td>{{p.descricao}}</td>
+                    <td class="text-center" [ngSwitch]="p.ativo">
+                        <p *ngSwitchCase="true">
+                            <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                        </p>
+                        <p *ngSwitchCase="false">
+                            <i class="fa fa-square-o" aria-hidden="true"></i>
+                        </p>
+                    </td>
+                    <td class="text-center">{{p.valor | currency:'BRL':symbol}}</td>
+
+                    <td>
+                        <span class="float-right">
+                            <a class="btn btn-outline-info" [routerLink]="['produto', p.id]"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;Editar</a>
+                            &nbsp;
+                            <button (click)="apagarProduto(p.id);" class="btn btn-outline-danger"><i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;Apagar</button>
+                        </span>
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
